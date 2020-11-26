@@ -1,0 +1,27 @@
+html, body {
+  background-color:black;
+  height: 100%;
+  margin: 0;
+  font-family: monospace; 
+}
+
+div {
+  color: white;
+    background-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 340px;
+    display: block;
+}
+.header {
+  text-align: center;
+}
+
+input, input:focus {
+  border: none;
+  color : #F24;
+  border-color: black;
+  background-color: black;
+}
+  
+  
