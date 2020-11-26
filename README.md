@@ -1,5 +1,5 @@
 # tixy_pounce
-Modeled after [tixy.land](https://pixy.land/), mini-code-golfing with "Pounce" code.
+Modeled after [tixy.land](https://tixy.land/), code-mini-golf using the "Pounce" programming language.
 (: [tixy pounce](https://pounce-lang.github.io/tixy_pounce/public/) :)
 
 ### Created with pounce-lang/simple-example-app starter kit 
