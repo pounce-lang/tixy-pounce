@@ -8,19 +8,21 @@ const rows = 16;
 const columns = 16;
 const off = 20;
 const scale = 20;
-const start_t = Date.now();
+let start_t = Date.now();
 const frame_int = 100;
 let last_update = 0;
 let work_time = 0;
 let next = 0;
+let fn_of_time = false;
 
-// create an interpreter to run the Pounce program
+// parse the Pounce program
 export default function repl(pounceProgram, logLevel = 0) {
-    // cleanStart(stackEle);
+    start_t = Date.now();
     nextPounceAst = parse(pounceProgram);
-    if (!next) {
+    if (!next || !fn_of_time) {
         window.requestAnimationFrame(step);
     }
+    fn_of_time = pounceProgram.indexOf("t") >= 0;
 };
 
 const ctx = document.getElementById("output").getContext("2d");
@@ -48,6 +50,9 @@ const step = () => {
             ctx.fill();
             i++
         }
+    }
+    if (!fn_of_time) {
+        return;
     }
     const post_work_t = Date.now() - start_t;
     // work_time = post_work_t - t;

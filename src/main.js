@@ -8,7 +8,7 @@ console.log('if you have sourcemaps enabled in your devtools, click on main.js:5
 const myPounceProgramEle = document.getElementById("user-pl");
 // const exampleSelectEle = document.getElementById("example");
 
-let pounceProgram = 'x 16 /';
+let pounceProgram = '8 x - 8 /';
 let logLevel = 0;
 
 myPounceProgramEle.addEventListener("keyup", (e) => {
@@ -27,5 +27,8 @@ myPounceProgramEle.addEventListener("keyup", (e) => {
 // });
 
 
-myPounceProgramEle.innerText = pounceProgram;
+myPounceProgramEle.value = pounceProgram;
+
+myPounceProgramEle.focus();
+
 repl(pounceProgram, logLevel);

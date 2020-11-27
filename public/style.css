@@ -3,17 +3,28 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: monospace; 
+  color: white;
 }
 
 div {
   color: white;
-    background-color: black;
-    margin-left: auto;
-    margin-right: auto;
-    width: 340px;
-    display: block;
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 340px;
+  display: block;
 }
 .header {
+  text-align: center;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
   text-align: center;
 }
 
@@ -23,5 +34,7 @@ input, input:focus {
   border-color: black;
   background-color: black;
 }
-  
-  
+
+a {
+  color: antiquewhite;
+}
