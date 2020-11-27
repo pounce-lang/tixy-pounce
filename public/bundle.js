@@ -6775,15 +6775,12 @@
            }
        };
 
-       // even though Rollup is bundling all your files together, errors and
-       // logs will still point to your original source modules
-       console.log('if you have sourcemaps enabled in your devtools, click on main.js:5 -->');
-
-       // Add event listener for programmer input
+       // Add event listener for code-mini-golf input
        const myPounceProgramEle = document.getElementById("user-pl");
        // const exampleSelectEle = document.getElementById("example");
 
-       let pounceProgram = '8 x - 8 /';
+       const initProgram = decodeURI(location.hash.substr(1));
+       let pounceProgram = initProgram ? initProgram : '7.5 x - 8 /';
        let logLevel = 0;
 
        myPounceProgramEle.addEventListener("keyup", (e) => {
@@ -6791,16 +6788,10 @@
                pounceProgram = e.target.value;
                repl(pounceProgram, logLevel);
            }
+           if (e.key == 'Enter') {
+               location.hash = encodeURI(pounceProgram);
+           }
        }, false);
-
-
-       // exampleSelectEle.addEventListener('change', (e) => {
-       //     pounceProgram = e.target.value;
-       //     myPounceProgramEle.innerText = pounceProgram;
-       //     myPounceProgramEle.value = pounceProgram;
-       //     repl(pounceProgram, logLevel);
-       // });
-
 
        myPounceProgramEle.value = pounceProgram;
 

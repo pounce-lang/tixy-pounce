@@ -29,12 +29,15 @@ div {
 }
 
 input, input:focus {
-  border: none;
+  border: solid 1px rgb(165, 165, 165);
   color : #F24;
-  border-color: black;
   background-color: black;
 }
 
 a {
   color: antiquewhite;
+}
+
+#instructions {
+  padding-bottom: 20px;
 }
