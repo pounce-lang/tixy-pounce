@@ -13,6 +13,6 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
-    "start": "rollup -c -w & serve public"
+    "start": "rollup -c -w & serve "
   }
 }
