@@ -1,5 +1,5 @@
 {
-  "name": "pounch-lang-starter-kit",
+  "name": "tixt-pounce",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
@@ -7,7 +7,7 @@
     "serve": "^11.3.2"
   },
   "dependencies": {
-    "@pounce-lang/core": "^2.0.3"
+    "@pounce-lang/core": "^2.0.4"
   },
   "scripts": {
     "build": "rollup -c",

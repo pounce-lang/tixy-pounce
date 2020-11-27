@@ -2939,7 +2939,7 @@
                        if (this._offset < this._inputSize) {
                            chunk0 = this._input.substring(this._offset, this._offset + 1);
                        }
-                       if (chunk0 !== null && /^[a-zA-Z0-9\_\-\+\=\/\~\!\@\$\%\^\&\*\?\<\>]/.test(chunk0)) {
+                       if (chunk0 !== null && /^[a-zA-Z0-9\|\_\-\+\=\/\~\!\@\$\%\^\&\*\?\<\>]/.test(chunk0)) {
                            address2 = new TreeNode(this._input.substring(this._offset, this._offset + 1), this._offset);
                            this._offset = this._offset + 1;
                        }
@@ -2950,7 +2950,7 @@
                                this._expected = [];
                            }
                            if (this._offset === this._failure) {
-                               this._expected.push('[a-zA-Z0-9\\_\\-\\+\\=\\/\\~\\!\\@\\$\\%\\^\\&\\*\\?\\<\\>]');
+                               this._expected.push('[a-zA-Z0-9\\|\\_\\-\\+\\=\\/\\~\\!\\@\\$\\%\\^\\&\\*\\?\\<\\>]');
                            }
                        }
                        if (address2 !== FAILURE) {
@@ -5426,8 +5426,8 @@
                sig: [[{ type: 'boolean' }, { type: 'boolean' }], [{ type: 'boolean' }]],
                compose: function (s) {
                    var _a, _b;
-                   var b = toNumOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
-                   var a = toNumOrNull((_b = s) === null || _b === void 0 ? void 0 : _b.pop());
+                   var b = toBoolOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
+                   var a = toBoolOrNull((_b = s) === null || _b === void 0 ? void 0 : _b.pop());
                    if (a !== null && b !== null) {
                        s.push(a && b);
                        return [s];
@@ -5439,8 +5439,8 @@
                sig: [[{ type: 'boolean' }, { type: 'boolean' }], [{ type: 'boolean' }]],
                compose: function (s) {
                    var _a, _b;
-                   var b = toNumOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
-                   var a = toNumOrNull((_b = s) === null || _b === void 0 ? void 0 : _b.pop());
+                   var b = toBoolOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
+                   var a = toBoolOrNull((_b = s) === null || _b === void 0 ? void 0 : _b.pop());
                    if (a !== null && b !== null) {
                        s.push(a || b);
                        return [s];
@@ -5452,7 +5452,7 @@
                sig: [[{ type: 'boolean' }], [{ type: 'boolean' }]],
                compose: function (s) {
                    var _a;
-                   var a = toNumOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
+                   var a = toBoolOrNull((_a = s) === null || _a === void 0 ? void 0 : _a.pop());
                    if (a !== null) {
                        s.push(!a);
                        return [s];
