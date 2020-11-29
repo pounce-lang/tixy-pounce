@@ -6712,92 +6712,116 @@
 
        // const stackEle = document.querySelector('#canvas');
        let interp;
-       let pounceAst;
        let nextPounceAst = null;
-       const rows = 16;
-       const columns = 16;
+       let compositions = [];
+       let processing = false;
+       const rows = 64;
+       const columns = 64;
+       const layers = 2;
        const off = 20;
-       const scale = 20;
-       let start_t = Date.now();
-       const frame_int = 100;
-       let next = 0;
-       let fn_of_time = false;
+       const scale = 5;
 
        // parse the Pounce program
        function repl(pounceProgram, logLevel = 0) {
-           start_t = Date.now();
-           nextPounceAst = parse$1$1(pounceProgram);
-           if (!next || !fn_of_time) {
-               window.requestAnimationFrame(step);
+           nextPounceAst = parse$1$1(pounceProgram, {logLevel});
+           if (nextPounceAst) {
+               if (!processing) {
+                   processing = true;
+                   window.requestAnimationFrame(step);
+               }
            }
-           fn_of_time = pounceProgram.indexOf("t") >= 0;
        }
        const ctx = document.getElementById("output").getContext("2d");
 
        const step = () => {
-           const t = Date.now() - start_t;
-           if (nextPounceAst) {
-               pounceAst = nextPounceAst;
-           }
-           let i = 0;
-           ctx.fillStyle = "#000";
+           ctx.fillStyle = " #615c57";
            ctx.fillRect(0, 0, 340, 340);
-           for (var y = 0; y < rows; y++) {
+           for (var l = 0; l < layers; l++) {
                for (var x = 0; x < columns; x++) {
-                   let dataPlusPounce = [t/1000, i, x, y, ['t', 'i', 'x', 'y'], pounceAst, 'pounce'];
-                   interp = interpreter$1(dataPlusPounce);
-                   let res = interp?.next?.();
-                   let v = res?.value?.stack?.[0] ?? 0;
-                   // ctx.scale(1, 1);
-                   ctx.beginPath();
-                   ctx.fillStyle = v < 0 ? "#F24" : "#FFF";
-                   v = Math.min(1, Math.abs(v));
-                   // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-                   ctx.arc(x * scale + off, y * scale + off, v * scale / 2, 0, 2 * Math.PI);
-                   ctx.fill();
-                   i++;
+                   for (var y = 0; y < rows; y++) {
+                       let dataPlusPounce = [...compositions, l, x, y, ['l', 'x', 'y'], nextPounceAst, 'pounce'];
+                       interp = interpreter$1(dataPlusPounce);
+                       let res = interp?.next?.();
+                       // responce expected [r g b alpha]
+                       let v = res?.value?.stack ?? [1, 0, 0, 1];
+                       // console.log(`rgba(${v[0]},${v[1]},${v[2]},${v[3]})`);
+                       ctx.fillStyle = `rgba(${v[0]*255},${v[1]*255},${v[2]*255},${v[3]})`;
+                       ctx.fillRect(x * scale + off, y * scale + off, scale, scale);
+                   }
                }
            }
-           if (!fn_of_time) {
-               return;
-           }
-           const post_work_t = Date.now() - start_t;
-           // work_time = post_work_t - t;
-           next = t + frame_int;
-           const time_till_next = next - post_work_t;
-           if (time_till_next > 10) {
-               setTimeout(() => {
-                   window.requestAnimationFrame(step);
-               }, time_till_next);
-           }
-           else {
-               window.requestAnimationFrame(step);
-           }
+           processing = false;
        };
 
        // Add event listener for code-mini-golf input
-       const myPounceProgramEle = document.getElementById("user-pl");
+       const r_PounceProgramEle = document.getElementById("user-pl-r");
+       const g_PounceProgramEle = document.getElementById("user-pl-g");
+       const b_PounceProgramEle = document.getElementById("user-pl-b");
+       const a_PounceProgramEle = document.getElementById("user-pl-a");
        // const exampleSelectEle = document.getElementById("example");
 
-       const initProgram = decodeURI(location.hash.substr(1));
-       let pounceProgram = initProgram ? initProgram : '7.5 x - 8 /';
+       const initProgram = decodeURI(location.hash.substr(1))?.split(';');
+       let r_pounceProgram = initProgram[0] ? initProgram[0] : 'x 2 % 2 /';
+       let g_pounceProgram = initProgram[1] ? initProgram[1] : 'y 3 % 3 /';
+       let b_pounceProgram = initProgram[2] ? initProgram[2] : 'x 64 /';
+       let a_pounceProgram = initProgram[3] ? initProgram[3] : '0.2';
        let logLevel = 0;
 
-       myPounceProgramEle.addEventListener("keyup", (e) => {
-           if (e.target.value !== pounceProgram) {
-               pounceProgram = e.target.value;
-               repl(pounceProgram, logLevel);
+       // red
+       r_PounceProgramEle.addEventListener("keyup", (e) => {
+           if (e.target.value !== r_pounceProgram) {
+               r_pounceProgram = e.target.value;
+               repl(`${r_pounceProgram} ${g_pounceProgram} ${b_pounceProgram} ${a_pounceProgram}`, logLevel);
            }
            if (e.key == 'Enter') {
-               location.hash = encodeURI(pounceProgram);
+               location.hash = encodeURI(`${r_pounceProgram};${g_pounceProgram};${b_pounceProgram};${a_pounceProgram}`);
            }
        }, false);
 
-       myPounceProgramEle.value = pounceProgram;
+       r_PounceProgramEle.value = r_pounceProgram;
 
-       myPounceProgramEle.focus();
+       r_PounceProgramEle.focus();
 
-       repl(pounceProgram, logLevel);
+       // green
+       g_PounceProgramEle.addEventListener("keyup", (e) => {
+           if (e.target.value !== g_pounceProgram) {
+               g_pounceProgram = e.target.value;
+               repl(`${r_pounceProgram} ${g_pounceProgram} ${b_pounceProgram} ${a_pounceProgram}`, logLevel);
+           }
+           if (e.key == 'Enter') {
+               location.hash = encodeURI(`${r_pounceProgram};${g_pounceProgram};${b_pounceProgram};${a_pounceProgram}`);
+           }
+       }, false);
+
+       g_PounceProgramEle.value = g_pounceProgram;
+
+       //blue
+       b_PounceProgramEle.addEventListener("keyup", (e) => {
+           if (e.target.value !== b_pounceProgram) {
+               b_pounceProgram = e.target.value;
+               repl(`${r_pounceProgram} ${g_pounceProgram} ${b_pounceProgram} ${a_pounceProgram}`, logLevel);
+           }
+           if (e.key == 'Enter') {
+               location.hash = encodeURI(`${r_pounceProgram};${g_pounceProgram};${b_pounceProgram};${a_pounceProgram}`);
+           }
+       }, false);
+
+       b_PounceProgramEle.value = b_pounceProgram;
+
+       // alpha
+       a_PounceProgramEle.addEventListener("keyup", (e) => {
+           if (e.target.value !== a_pounceProgram) {
+               a_pounceProgram = e.target.value;
+               repl(`${r_pounceProgram} ${g_pounceProgram} ${b_pounceProgram} ${a_pounceProgram}`, logLevel);
+           }
+           if (e.key == 'Enter') {
+               location.hash = encodeURI(`${r_pounceProgram};${g_pounceProgram};${b_pounceProgram};${a_pounceProgram}`);
+           }
+       }, false);
+
+       a_PounceProgramEle.value = a_pounceProgram;
+
+       repl(`${r_pounceProgram} ${g_pounceProgram} ${b_pounceProgram} ${a_pounceProgram}`, logLevel);
 
 }());
 //# sourceMappingURL=bundle.js.map

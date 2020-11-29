@@ -1,14 +1,14 @@
 html, body {
-  background-color:black;
+  background-color: #615c57;
   height: 100%;
   margin: 0;
   font-family: monospace; 
-  color: white;
+  color: #888;
 }
 
 div {
-  color: white;
-  background-color: black;
+  color: #888;
+  background-color: #615c57;
   margin-left: auto;
   margin-right: auto;
   width: 340px;
@@ -23,19 +23,31 @@ div {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: black;
-  color: white;
+  background-color:  #615c57;
+  color: #888;
   text-align: center;
 }
 
 input, input:focus {
-  border: solid 1px rgb(165, 165, 165);
-  color : #F24;
-  background-color: black;
+  border: solid 1px #888;
+  color : #eeeeee;
+  background-color: #615c57;
+}
+#user-pl-r {
+  background-color: #ca3c3c;
+}
+#user-pl-g {
+  background-color: #31b331;
+}
+#user-pl-b {
+  background-color: #3335b4;
+}
+#user-pl-a {
+  background-color: #7c7772;
 }
 
 a {
-  color: antiquewhite;
+  color: #888;
 }
 
 #instructions {
