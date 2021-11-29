@@ -5,7 +5,7 @@ const myPounceProgramEle = document.getElementById("user-pl");
 // const exampleSelectEle = document.getElementById("example");
 
 const initProgram = decodeURI(location.hash.substr(1));
-let pounceProgram = initProgram ? initProgram : '7.5 x - 8 /';
+let pounceProgram = initProgram ? initProgram : 'x 7.5 - y  t 20 + 25 / / %';
 let logLevel = 0;
 
 myPounceProgramEle.addEventListener("keyup", (e) => {
