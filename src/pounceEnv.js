@@ -18,7 +18,7 @@ export default function repl(pounceProgram, logLevel = 0) {
     if (!next || !fn_of_time) {
         window.requestAnimationFrame(step);
     }
-    fn_of_time = pounceProgram.indexOf("t") >= 0;
+    fn_of_time = pounceProgram.indexOf(" t ") >= 0;
 };
 
 const ctx = document.getElementById("output").getContext("2d");
@@ -38,11 +38,13 @@ const step = (current_t) => {
             interp = interpreter(dataPlusPounce);
             let res = interp?.next?.();
             let v = res?.value?.stack?.[0] ?? 0;
-            ctx.beginPath();
-            ctx.fillStyle = v < 0 ? "#92F" : "#0FF";
-            v = Math.min(1, Math.abs(v));
-            ctx.arc(x * scale + off, y * scale + off, v * scale / 2, 0, 2 * Math.PI);
-            ctx.fill();
+            if (v !== 0) {
+                ctx.beginPath();
+                ctx.fillStyle = v < 0 ? "#92F" : "#0FF";
+                v = Math.min(1, Math.abs(v));
+                ctx.arc(x * scale + off, y * scale + off, v * scale / 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
             i++;
         }
     }
