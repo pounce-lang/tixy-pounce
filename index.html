@@ -20,10 +20,15 @@
         </div>
         <div><canvas id="output"  width="340" height="340" ></canvas></div>
         <div id="instructions">
-            # <a href="https://github.com/pounce-lang/" target="_new">Pounce</a> code (like Forth) is Post-fix<br />
-            # Data comes first followed by functions<br />
+            # (like Forth) <a href="https://pounce-lang-show-case.netlify.app/" target="_new">Pounce</a> syntax is post-fix<br />
+            # data comes first followed by functions<br />
             # Enter your tixy-pounce code below<br />
-            # just like the js original <a href="https://tixy.land/" target="_new">tixy.land</a>
+            # Or try these: <select id="examples">
+                <option value="t 16 % 16 - y +">examples</option>
+                <option value="t x y * x * + 1000 % 1000 /">sun rise</option>
+                <option value="t x + .6 * sin 2.5 + 3 * floor y ==">wave 2</option>
+            </select><br />
+            # simmilar to the Javascript <a href="https://tixy.land/" target="_new">tixy.land</a>
         </div>
        
         <div id="program">

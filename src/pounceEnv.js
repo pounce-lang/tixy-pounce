@@ -11,6 +11,13 @@ let start_t = -1;
 let next = 0;
 let fn_of_time = false;
 
+const has_t = (w) => {
+    if (Array.isArray(w)) {
+        return w.filter(has_t);
+    } 
+    return (w === "t");
+};
+
 // parse the Pounce program
 export default function repl(pounceProgram, logLevel = 0) {
     start_t = -1;
@@ -18,7 +25,7 @@ export default function repl(pounceProgram, logLevel = 0) {
     if (!next || !fn_of_time) {
         window.requestAnimationFrame(step);
     }
-    fn_of_time = pounceProgram.indexOf(" t ") >= 0;
+    fn_of_time = nextPounceAst.filter(has_t).length >= 0;
 };
 
 const ctx = document.getElementById("output").getContext("2d");
@@ -40,7 +47,7 @@ const step = (current_t) => {
             let v = res?.value?.stack?.[0] ?? 0;
             if (v !== 0) {
                 ctx.beginPath();
-                ctx.fillStyle = v < 0 ? "#92F" : "#0FF";
+                ctx.fillStyle = v < 0 ? "#124dff" : "#fff023";
                 v = Math.min(1, Math.abs(v));
                 ctx.arc(x * scale + off, y * scale + off, v * scale / 2, 0, 2 * Math.PI);
                 ctx.fill();

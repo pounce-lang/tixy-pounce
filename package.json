@@ -7,7 +7,7 @@
     "serve": "^13.0.2"
   },
   "dependencies": {
-    "@pounce-lang/core": "^2.0.4"
+    "@pounce-lang/core": "^3.0.1"
   },
   "scripts": {
     "build": "rollup -c",

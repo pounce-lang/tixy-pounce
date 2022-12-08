@@ -41,3 +41,10 @@ a {
 #instructions {
   padding-bottom: 20px;
 }
+
+.positive {
+  color:#fff023;
+}
+.negative {
+  color:#124dff;
+}
